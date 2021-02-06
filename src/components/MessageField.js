@@ -5,7 +5,7 @@ import { pushMessage } from '../firebase';
 
 const MessageField = ({ name, setText, text}) => {
   const [isComposed, setIsComposed] = useState(false);
-  
+
   return <TextField
   fullWidth={true}
   onChange={(e) => {setText(e.target.value);}}
@@ -16,7 +16,7 @@ const MessageField = ({ name, setText, text}) => {
     if(text==='') return;
 
     if(e.key === 'Enter'){
-      pushMessage({ name:'maru', text })
+      pushMessage({ name, text })
       setText('');
       e.preventDefault();
     }
