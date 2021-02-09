@@ -68,16 +68,27 @@ export default function SignIn({ setName }) {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="ニックネーム"
-            name="name"
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
             autoFocus
-            onChange={(e)=>setString(e.target.value)}
-            onKeyDown={(e)=>{
-              if(isComposed) return;
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            label="password"
+            name="password"
+            type="password"
+            onChange={(e) => setString(e.target.value)}
+            onKeyDown={(e) => {
+              if (isComposed) return;
 
-              if(e.key==='Enter'){
-                setName(e.target.value)
+              if (e.key === 'Enter') {
+                setName(e.target.value);
                 e.preventDefault();
               }
             }}
@@ -95,7 +106,7 @@ export default function SignIn({ setName }) {
             color="primary"
             className={classes.submit}
             disabled={disabled}
-            onClick={()=>{
+            onClick={() => {
               setName(string);
             }}
           >
