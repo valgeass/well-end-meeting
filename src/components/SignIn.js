@@ -48,12 +48,18 @@ export default function SignIn({ setName }) {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
-  const [isComposed, setIsComposed] = useState(false);
+  const [password, setPassword] = useState('');
+  const [pwDisabled, setPwDisabled] = useState('');
 
   useEffect(() => {
     const disabled = string === '';
-    setDisabled(disabled)
+    setDisabled(disabled);
   }, [string]);
+
+  useEffect(() => {
+    const pwDisabled = password === '';
+    setPwDisabled(pwDisabled);
+  }, [password])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -73,6 +79,7 @@ export default function SignIn({ setName }) {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setString(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -83,21 +90,7 @@ export default function SignIn({ setName }) {
             label="password"
             name="password"
             type="password"
-            onChange={(e) => setString(e.target.value)}
-            onKeyDown={(e) => {
-              if (isComposed) return;
-
-              if (e.key === 'Enter') {
-                setName(e.target.value);
-                e.preventDefault();
-              }
-            }}
-            onCompositionStart={() => {
-              setIsComposed(true);
-            }}
-            onCompositionEnd={() => {
-              setIsComposed(false);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="button"
@@ -105,7 +98,7 @@ export default function SignIn({ setName }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={disabled}
+            disabled={disabled || pwDisabled}
             onClick={() => {
               setName(string);
             }}
