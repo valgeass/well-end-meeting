@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-
+import SignUp from './SignUp';
+import { Link as RouterLink } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ setName }) {
+export default function SignIn({ setName, setSignUp }) {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
@@ -61,7 +62,7 @@ export default function SignIn({ setName }) {
   useEffect(() => {
     const pwDisabled = password === '';
     setPwDisabled(pwDisabled);
-  }, [password])
+  }, [password]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -114,7 +115,11 @@ export default function SignIn({ setName }) {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link
+                to="/SignUp"
+                variant="body2"
+                onClick={() => {setSignUp(true)}}
+              >
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
