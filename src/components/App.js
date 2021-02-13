@@ -19,17 +19,14 @@ export default () => {
   // } else {
   //   return <Main name={name} />;
   // }
-  // if (signup) {
-  //   return <SignUp />
-  // } else if (config.signInEnabled === true && name === '') {
-  //   return <SignIn setName={setName} setSignUp={setSignUp} />;;
-  // } else {
-  //   return <Main name={name} />;
-  // }
+  // return (
+  //   <SignIn />
+  // )
   return (
     <Router>
       <Switch>
-        <Route exact path="/signin" component={SignUp} />
+        <Route exact path="/signup" component={ SignUp } />
+        <Route exact path="/" component={SignIn} />
       </Switch>
     </Router>
   );

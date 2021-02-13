@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ setName, setSignUp }) {
+export default function SignIn({ setName }) {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
@@ -115,13 +115,15 @@ export default function SignIn({ setName, setSignUp }) {
               </Link>
             </Grid>
             <Grid item>
-              <Link
+              {/* <Link
                 to="/SignUp"
                 variant="body2"
-                onClick={() => {setSignUp(true)}}
               >
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Link> */}
+              <RouterLink to="/signup">
+                {"Don't have an account? Sign Up"}
+              </RouterLink>
             </Grid>
           </Grid>
         </form>
