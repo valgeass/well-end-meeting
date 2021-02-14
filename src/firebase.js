@@ -18,8 +18,9 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APP_ID
 };
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+export const firebaseConfigInit = firebase.initializeApp(firebaseConfig);
+const database = firebaseConfigInit.database();
+
 export const messagesRef = database.ref('messages');
 
 export const pushMessage = ({ name, text }) => {

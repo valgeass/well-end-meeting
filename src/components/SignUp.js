@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Link as RouterLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
+
+import SignIn from './SignIn';
+import { AuthProvider, AuthContext } from './AuthProvider';
 
 function Copyright() {
   return (
@@ -46,8 +51,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+const SignUp = ({ history }) => {
+  const [email, isEmail] = useState('');
+  const [password, isPassword] = useState('');
   const classes = useStyles();
+
+  const { signup } = useContext(AuthContext);
+  // AuthContextからsignup関数を受け取る
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signup(email, password, history);
+  };
+
+  useEffect(() => {
+    console.log(password);
+    console.log(email);
+  }, [password, email]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -61,29 +80,6 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -93,6 +89,9 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => {
+                  isEmail(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +104,9 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  isPassword(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,14 +122,15 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <RouterLink to="/">Already have an account? Sign in</RouterLink>
             </Grid>
           </Grid>
         </form>
@@ -137,4 +140,6 @@ export default function SignUp() {
       </Box>
     </Container>
   );
-}
+};
+
+export default withRouter(SignUp);

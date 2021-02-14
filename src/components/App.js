@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 //screen
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import { AuthProvider } from './AuthProvider';
 
 export default () => {
   const [name, setName] = useState('');
@@ -23,11 +24,14 @@ export default () => {
   //   <SignIn />
   // )
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/signup" component={ SignUp } />
-        <Route exact path="/" component={SignIn} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/" component={SignIn} />
+          {/* <Route exact path="/main" component={Main} /> */}
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 };

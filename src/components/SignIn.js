@@ -115,12 +115,6 @@ export default function SignIn({ setName }) {
               </Link>
             </Grid>
             <Grid item>
-              {/* <Link
-                to="/SignUp"
-                variant="body2"
-              >
-                {"Don't have an account? Sign Up"}
-              </Link> */}
               <RouterLink to="/signup">
                 {"Don't have an account? Sign Up"}
               </RouterLink>

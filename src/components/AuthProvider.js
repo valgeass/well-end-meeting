@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { firebaseConfig } from '../firebase';
+import { firebaseConfigInit } from '../firebase';
 
 // contextの作成
 export const AuthContext = React.createContext();
@@ -10,7 +10,9 @@ export const AuthProvider = ({ children }) => {
   // ユーザーをログインさせる関数
   const login = async (email, password, history) => {
     try {
-      await firebaseConfig.auth().signInWithEmailAndPassword(email, password);
+      await firebaseConfigInit
+        .auth()
+        .signInWithEmailAndPassword(email, password);
       history.push('/');
     } catch (error) {
       alert(error);
@@ -20,7 +22,9 @@ export const AuthProvider = ({ children }) => {
   // 新しいユーザーを作成しログインさせる関数
   const signup = async (email, password, history) => {
     try {
-      await firebaseConfig.auth().createUserWithEmailAndPassword(email, password);
+      await firebaseConfigInit
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
       history.push('/');
     } catch (error) {
       alert(error);
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    firebaseConfig.auth().onAuthStateChanged(setCurrentUser);
+    firebaseConfigInit.auth().onAuthStateChanged(setCurrentUser);
   }, []);
 
   return (
@@ -44,3 +48,13 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// export  const signUp = async (email, password) => {
+//     try {
+//       await firebaseConfigInit
+//         .auth()
+//         .createUserWithEmailAndPassword(email, password);
+//     } catch (error) {
+//       alert(error);
+//     }
+//   };
