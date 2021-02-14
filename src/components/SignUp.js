@@ -15,8 +15,7 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import SignIn from './SignIn';
-import { AuthProvider, AuthContext } from './AuthProvider';
+import { AuthContext } from './AuthProvider';
 
 function Copyright() {
   return (
@@ -54,19 +53,19 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = ({ history }) => {
   const [email, isEmail] = useState('');
   const [password, isPassword] = useState('');
+  const [firstName, isFirstName] = useState('');
+  const [lastName, isLastName] = useState('');
   const classes = useStyles();
 
-  const { signup } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
   // AuthContextからsignup関数を受け取る
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(email, password, history);
+    await signUp(email, password, firstName, lastName, history);
   };
 
-  useEffect(() => {
-    console.log(password);
-    console.log(email);
-  }, [password, email]);
+  // useEffect(() => {
+  // }, [password, email]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,6 +79,35 @@ const SignUp = ({ history }) => {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                onChange={(e) => {
+                  isFirstName(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+                onChange={(e) => {
+                  isLastName(e.target.value);
+                }}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"

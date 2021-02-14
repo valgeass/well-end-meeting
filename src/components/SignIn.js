@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import SignUp from './SignUp';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
+
+import { AuthContext } from './AuthProvider';
 
 function Copyright() {
   return (
@@ -47,17 +49,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ setName }) {
+const SignIn = ({ history }) => {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
-  const [string, setString] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwDisabled, setPwDisabled] = useState('');
 
+  const { signIn } = useContext(AuthContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signIn(email, password, history);
+  };
+
   useEffect(() => {
-    const disabled = string === '';
+    const disabled = email === '';
     setDisabled(disabled);
-  }, [string]);
+  }, [email]);
 
   useEffect(() => {
     const pwDisabled = password === '';
@@ -82,7 +90,7 @@ export default function SignIn({ setName }) {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e) => setString(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -102,8 +110,8 @@ export default function SignIn({ setName }) {
             color="primary"
             className={classes.submit}
             disabled={disabled || pwDisabled}
-            onClick={() => {
-              setName(string);
+            onClick={(e) => {
+              handleSubmit(e);
             }}
           >
             はじめる
@@ -127,4 +135,6 @@ export default function SignIn({ setName }) {
       </Box>
     </Container>
   );
-}
+};
+
+export default withRouter(SignIn);

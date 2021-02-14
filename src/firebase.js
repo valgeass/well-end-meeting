@@ -6,7 +6,7 @@ const {
   REACT_APP_FIREBASE_PROJECTID,
   REACT_APP_FIREBASE_STORAGE_BUCKET,
   REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  REACT_APP_FIREBASE_APP_ID
+  REACT_APP_FIREBASE_APP_ID,
 } = process.env;
 
 const firebaseConfig = {
@@ -15,12 +15,14 @@ const firebaseConfig = {
   projectId: REACT_APP_FIREBASE_PROJECTID,
   storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: REACT_APP_FIREBASE_APP_ID
+  appId: REACT_APP_FIREBASE_APP_ID,
 };
 
-export const firebaseConfigInit = firebase.initializeApp(firebaseConfig);
+const firebaseConfigInit = firebase.initializeApp(firebaseConfig);
 const database = firebaseConfigInit.database();
 
+export const auth = firebaseConfigInit.auth();
+export const firebaseStore = firebaseConfigInit.firestore();
 export const messagesRef = database.ref('messages');
 
 export const pushMessage = ({ name, text }) => {
