@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { AuthProvider } from './AuthProvider';
+import Auth from './Auth';
 
 export default () => {
   const [name, setName] = useState('');
@@ -19,7 +20,11 @@ export default () => {
         <Switch>
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/" component={SignIn} />
-          <Route exact path="/main" component={Main} />
+          <Auth>
+            <Switch>
+              <Route exact path="/main" component={Main} />
+            </Switch>
+          </Auth>
         </Switch>
       </Router>
     </AuthProvider>

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MessageInputField from './MessageInputField';
 import MessageList from './MessageList';
+
+import { AuthContext } from './AuthProvider';
 
 const useStyles = makeStyles({
   root: {
@@ -12,15 +14,21 @@ const useStyles = makeStyles({
   },
 });
 
-const Main = ({ name }) => {
-  const classes = useStyles();
-  return (
-  <div className={classes.root}>
-    <MessageList />
-    <MessageInputField name={name}/>
-  </div>
-  );
-
-}
+// const Main = ({ children }) => {
+//   console.log(children)
+//   return (
+//     <div>
+//       <MessageList />
+//       <MessageInputField />
+//     </div>
+//   );
+// };
+const Main = () => {
+  const { currentUser } = useContext(AuthContext);
+  useEffect(() => {
+    return () => console.log("unmounted");
+  }, []);
+  return <div>{currentUser}</div>;
+};
 
 export default Main;

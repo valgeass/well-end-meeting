@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, useRef } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import { auth, firebaseStore } from '../firebase';
 
 // contextの作成
@@ -12,15 +12,6 @@ export const AuthProvider = ({ children }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       console.log('success signin');
-      // firebaseStore
-      //   .collection('users')
-      //   .where('uid', '==', currentUser.uid)
-      //   .get()
-      //   .then((querySnapshot) => {
-      //     querySnapshot.forEach((doc) => {
-      //       console.log(currentUser.uid);
-      //     });
-      //   });
       firebaseStore
         .collection('users')
         .doc(`${currentUser?.uid}`)
