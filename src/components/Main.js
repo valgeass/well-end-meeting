@@ -25,10 +25,11 @@ const useStyles = makeStyles({
 // };
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
+  console.log(currentUser)
   useEffect(() => {
     return () => console.log("unmounted");
   }, []);
-  return <div>{currentUser}</div>;
+  return <div>{ currentUser?.uid }</div>;
 };
 
 export default Main;
