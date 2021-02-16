@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from '../auth/AuthProvider';
 
 function Copyright() {
   return (

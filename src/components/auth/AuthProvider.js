@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from 'react';
-import { auth, firebaseStore } from '../firebase';
+import { auth, firebaseStore } from '../../firebase';
 
 // contextの作成
 export const AuthContext = createContext();

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 // import LoadingOverlay from 'react-loading-overlay';
-import SignIn from './SignIn';
-import Main from './Main';
+import SignIn from '../Pages/SignIn';
+import Main from '../Pages/Main';
 
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 const Auth = () => {
   const [signInCheck, setSignInCheck] = useState(false);

@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import SignUp from './SignUp';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from '../auth/AuthProvider';
 
 function Copyright() {
   return (

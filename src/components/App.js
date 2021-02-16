@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
-import Main from './Main';
+import Main from './Pages/Main';
 import config from '../config.json';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 //screen
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import { AuthProvider } from './AuthProvider';
-import Auth from './Auth';
+import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
+import { AuthProvider } from './auth/AuthProvider';
+import Auth from './auth/Auth';
+import ProfilePage from './Pages/ProfilePage';
 
 export default () => {
   const [name, setName] = useState('');
@@ -23,6 +24,7 @@ export default () => {
           <Auth>
             <Switch>
               <Route exact path="/main" component={Main} />
+              <Route exact path="/profile" component={ProfilePage} />
             </Switch>
           </Auth>
         </Switch>

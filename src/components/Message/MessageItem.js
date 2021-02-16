@@ -9,7 +9,7 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { gravatarPath } from '../gravatar';
+import { gravatarPath } from '../../gravatar';
 
 const useStyles = makeStyles(() => ({
   inline: {

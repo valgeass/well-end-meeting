@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { messagesRef } from '../firebase';
+import { messagesRef } from '../../firebase';
 import MessageItem from './MessageItem';
 
 const useStyles = makeStyles({
