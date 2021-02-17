@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import SignUp from './SignUp';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 import { AuthContext } from '../auth/AuthProvider';
@@ -58,7 +57,7 @@ const SignIn = ({ history }) => {
 
   const { signIn } = useContext(AuthContext);
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     signIn(email, password, history);
   };
 
@@ -113,6 +112,8 @@ const SignIn = ({ history }) => {
             onClick={(e) => {
               handleSubmit(e);
             }}
+            component={RouterLink}
+            to="/main"
           >
             はじめる
           </Button>

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         .then((querySnapshot) => {
           console.log(querySnapshot.data());
         });
-      history.push('/');
+      // history.push('/main');
     } catch (error) {
       alert(error);
     }
