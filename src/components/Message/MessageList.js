@@ -7,7 +7,7 @@ import MessageItem from './MessageItem';
 
 const useStyles = makeStyles({
   root: {
-    gridRow: 1,
+    gridRow: 2,
     overflow: 'auto',
     width: '100%',
   },

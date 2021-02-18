@@ -7,6 +7,8 @@ import MessageList from '../Message/MessageList';
 import { AuthContext } from '../auth/AuthProvider';
 import { withRouter } from 'react-router-dom';
 
+import { ButtonAppBar } from './AppBar';
+
 const useStyles = makeStyles({
   root: {
     display: 'grid',
@@ -21,7 +23,8 @@ const Main = () => {
   console.log('main');
   if (currentUser) {
     return (
-      <div className={classes.root}>
+      <div className={ classes.root }>
+        <ButtonAppBar />
         <MessageList />
         <MessageInputField name={currentUser?.uid} />
       </div>

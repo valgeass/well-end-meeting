@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
-    gridRow: 2,
+    gridRow: 3,
     margin: '26px',
   },
 });
