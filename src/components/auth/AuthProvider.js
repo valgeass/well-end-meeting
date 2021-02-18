@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext } from 'react';
-import { auth, firebaseStore } from '../../firebase';
+import { auth, firebaseStore } from '../util/firebase';
 
 // contextの作成
 export const AuthContext = createContext();
@@ -11,15 +11,14 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (email, password, history) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      console.log('success signin');
-      firebaseStore
+      await firebaseStore
         .collection('users')
         .doc(`${currentUser?.uid}`)
         .get()
         .then((querySnapshot) => {
           console.log(querySnapshot.data());
         });
-      // history.push('/main');
+      history.push('/');
     } catch (error) {
       alert(error);
     }
@@ -43,6 +42,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signOut = async () => {
+    await auth.signOut();
+  };
+
   useEffect(() => {
     auth.onAuthStateChanged(setCurrentUser);
   }, []);
@@ -53,6 +56,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signIn: signIn,
         signUp: signUp,
+        signOut: signOut,
         currentUser,
       }}
     >

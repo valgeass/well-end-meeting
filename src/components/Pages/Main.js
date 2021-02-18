@@ -5,6 +5,7 @@ import MessageInputField from '../Message/MessageInputField';
 import MessageList from '../Message/MessageList';
 
 import { AuthContext } from '../auth/AuthProvider';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
+  console.log('main');
   if (currentUser) {
     return (
       <div className={classes.root}>
@@ -29,4 +31,4 @@ const Main = () => {
   }
 };
 
-export default Main;
+export default withRouter(Main);

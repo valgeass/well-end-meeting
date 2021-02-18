@@ -5,7 +5,6 @@ import { Avatar, Grid } from '@material-ui/core';
 import { gravatarPath } from '../../gravatar';
 import MessageField from './MessageField';
 import MessageSubmitButton from './MessageSubmitButton';
-import ProfilePage from '../Pages/ProfilePage';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({

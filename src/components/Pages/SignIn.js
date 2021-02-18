@@ -57,7 +57,7 @@ const SignIn = ({ history }) => {
 
   const { signIn } = useContext(AuthContext);
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     signIn(email, password, history);
   };
 
