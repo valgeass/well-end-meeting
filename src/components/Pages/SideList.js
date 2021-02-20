@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { List } from '@material-ui/core';
 
 import { buttons_info } from '../util/PageList';
@@ -26,25 +26,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideList = () => {
+const SideList = forwardRef((props, ref) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.list}>
-      <List>
-        {buttons_info.map((text, index) => (
-          <ListItem button key={text}>
-            <Link to={text.link_to}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text.label} />
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <List className={classes.list} ref={ref}>
+      {buttons_info.map((text, index) => (
+        <ListItem button key={text.label}>
+          <Link to={text.link_to}>
+            <ListItemIcon>
+              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+              {text.icon}
+            </ListItemIcon>
+            <ListItemText primary={text.label} />
+          </Link>
+        </ListItem>
+      ))}
+    </List>
   );
-};
+});
 
-export default SideList();
+export default SideList;
