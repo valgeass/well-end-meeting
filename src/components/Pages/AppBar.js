@@ -7,13 +7,14 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { SimpleMenu } from './SimpleMenu';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     gridRow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginLeft: -12,
+    marginRight: 20,
   },
   title: {
     flexGrow: 1,
@@ -27,9 +28,14 @@ export const ButtonAppBar = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <SimpleMenu className={classes.menuButton}>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+            // onClick={this.toggleDrawer('left', true)}
+          >
             <MenuIcon />
-          </SimpleMenu>
+          </IconButton>
           <Typography variant="h6" className={classes.title}>
             Main
           </Typography>
