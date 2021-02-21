@@ -11,13 +11,6 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (email, password, history) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      await firebaseStore
-        .collection('users')
-        .doc(`${currentUser?.uid}`)
-        .get()
-        .then((querySnapshot) => {
-          console.log(querySnapshot.data());
-        });
       history.push('/');
     } catch (error) {
       alert(error);

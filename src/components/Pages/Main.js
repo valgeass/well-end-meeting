@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MessageInputField from '../Message/MessageInputField';
@@ -8,6 +8,7 @@ import { AuthContext } from '../auth/AuthProvider';
 import { withRouter } from 'react-router-dom';
 
 import { ButtonAppBar } from './AppBar';
+import { DB } from '../util/DB';
 
 const useStyles = makeStyles({
   root: {
@@ -20,13 +21,18 @@ const useStyles = makeStyles({
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
-  console.log('main');
-  if (currentUser) {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    DB({ currentUser, setName });
+  }, []);
+
+  if (name) {
     return (
-      <div className={ classes.root }>
+      <div className={classes.root}>
         <ButtonAppBar />
         <MessageList />
-        <MessageInputField name={currentUser?.uid} />
+        <MessageInputField name={name.firstName} />
       </div>
     );
   } else {

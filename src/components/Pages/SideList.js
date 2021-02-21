@@ -32,9 +32,7 @@ const SideList = forwardRef((props, ref) => {
   const handleSubmit = () => {
     // e.preventDefault();
     signOut();
-    console.log(currentUser);
   };
-  console.log(currentUser);
 
   return (
     <List className={classes.list} ref={ref}>
