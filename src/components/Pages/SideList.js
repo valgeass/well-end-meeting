@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const SideList = forwardRef((props, ref) => {
   const classes = useStyles();
 
-  const { currentUser, signOut } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   const handleSubmit = () => {
     // e.preventDefault();
     signOut();
@@ -41,7 +41,7 @@ const SideList = forwardRef((props, ref) => {
           <Link
             to={text.link_to}
             onClick={() => {
-              handleSubmit();
+              // handleSubmit();
             }}
           >
             <ListItemIcon>{text.icon}</ListItemIcon>

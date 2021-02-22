@@ -63,14 +63,11 @@ const SignIn = ({ history }) => {
 
   useEffect(() => {
     const disabled = email === '';
-    setDisabled(disabled);
-  }, [email]);
-
-  useEffect(() => {
     const pwDisabled = password === '';
+    setDisabled(disabled);
     setPwDisabled(pwDisabled);
-  }, [password]);
-
+  }, [email, password]);
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
