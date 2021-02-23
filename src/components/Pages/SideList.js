@@ -41,7 +41,7 @@ const SideList = forwardRef((props, ref) => {
           <Link
             to={text.link_to}
             onClick={() => {
-              // handleSubmit();
+              handleSubmit();
             }}
           >
             <ListItemIcon>{text.icon}</ListItemIcon>

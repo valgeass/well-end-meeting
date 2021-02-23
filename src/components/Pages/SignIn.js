@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { Link as RouterLink, withRouter, Redirect } from 'react-router-dom';
+import { auth } from '../util/firebase';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -54,6 +55,7 @@ const SignIn = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwDisabled, setPwDisabled] = useState('');
+  const [isSignIn, setIsSignIn] = useState('');
 
   const { signIn } = useContext(AuthContext);
   const handleSubmit = (e) => {
@@ -67,72 +69,82 @@ const SignIn = ({ history }) => {
     setDisabled(disabled);
     setPwDisabled(pwDisabled);
   }, [email, password]);
-  
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          ようこそ
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            label="password"
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={disabled || pwDisabled}
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-            component={RouterLink}
-            to="/main"
-          >
-            はじめる
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setIsSignIn({ user });
+    });
+  }, []);
+
+  if (isSignIn === '') {
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            ようこそ
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              label="password"
+              name="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={disabled || pwDisabled}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
+              component={RouterLink}
+              to="/main"
+            >
+              はじめる
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <RouterLink to="/signup">
+                  {"Don't have an account? Sign Up"}
+                </RouterLink>
+              </Grid>
             </Grid>
-            <Grid item>
-              <RouterLink to="/signup">
-                {"Don't have an account? Sign Up"}
-              </RouterLink>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+    );
+  } else {
+    return <Redirect to="/" />;
+  }
 };
 
 export default withRouter(SignIn);
