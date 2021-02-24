@@ -25,7 +25,7 @@ const Main = () => {
 
   useEffect(() => {
     DB({ currentUser, setName });
-  }, []);
+  }, [currentUser]);
 
   if (name) {
     return (
@@ -40,4 +40,4 @@ const Main = () => {
   }
 };
 
-export default withRouter(Main);
+export default Main;

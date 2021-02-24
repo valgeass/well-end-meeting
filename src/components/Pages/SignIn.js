@@ -57,7 +57,7 @@ const SignIn = ({ history }) => {
   const [pwDisabled, setPwDisabled] = useState('');
   const [isSignIn, setIsSignIn] = useState('');
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, currentUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     signIn(email, password, history);
@@ -70,13 +70,8 @@ const SignIn = ({ history }) => {
     setPwDisabled(pwDisabled);
   }, [email, password]);
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setIsSignIn({ user });
-    });
-  }, []);
 
-  if (isSignIn === '') {
+  if (currentUser === null) {
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
