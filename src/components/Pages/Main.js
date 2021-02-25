@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MessageInputField from '../Message/MessageInputField';
@@ -24,7 +24,13 @@ const Main = () => {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    DB({ currentUser, setName });
+    let unmount = false;
+    if (!unmount) {
+      (async () => {
+        await DB({ currentUser, setName });
+      })();
+    }
+    return () => (unmount = true);
   }, [currentUser]);
 
   if (name) {
