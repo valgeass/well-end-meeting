@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MessageInputField from '../Message/MessageInputField';
@@ -6,9 +6,12 @@ import MessageList from '../Message/MessageList';
 
 import { AuthContext } from '../auth/AuthProvider';
 import { withRouter } from 'react-router-dom';
+import { from } from 'rxjs';
 
 import { ButtonAppBar } from './AppBar';
 import { DB } from '../util/DB';
+
+import { firebaseStore } from '../util/firebase';
 
 const useStyles = makeStyles({
   root: {
@@ -26,12 +29,14 @@ const Main = () => {
   useEffect(() => {
     let unmount = false;
     if (!unmount) {
-      (async () => {
-        await DB({ currentUser, setName });
-      })();
+      const col = DB({ currentUser, setName });
+      console.log(unmount);
     }
-    return () => (unmount = true);
-  }, [currentUser]);
+    return () => {
+      unmount = true;
+      console.log(unmount);
+    };
+  }, []);
 
   if (name) {
     return (
