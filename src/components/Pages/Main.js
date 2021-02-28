@@ -1,25 +1,29 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 import MessageInputField from '../Message/MessageInputField';
 import MessageList from '../Message/MessageList';
 
 import { AuthContext } from '../auth/AuthProvider';
-import { withRouter, useParams } from 'react-router-dom';
-import { useAsyncFn } from 'react-use';
 
 import { ButtonAppBar } from './AppBar';
 import { DB } from '../util/DB';
 
-import { firebaseStore } from '../util/firebase';
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
     height: '100vh',
     gridTemplateRows: '1fr auto',
   },
-});
+  liner: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
@@ -56,7 +60,11 @@ const Main = () => {
       </div>
     );
   } else {
-    return <div>wait ...</div>;
+    return (
+      <div className={classes.liner}>
+        <LinearProgress />
+      </div>
+    );
   }
 };
 

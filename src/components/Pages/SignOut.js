@@ -6,7 +6,6 @@ import { AuthContext } from '../auth/AuthProvider';
 const SignOut = ({ history }) => {
   const { signOut } = useContext(AuthContext);
   const handleSubmit = (history) => {
-    // e.preventDefault();
     signOut(history);
   };
   useEffect(() => {

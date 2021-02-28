@@ -12,7 +12,7 @@ import { List } from '@material-ui/core';
 import { buttons_info } from '../util/PageList';
 import SignOut from './SignOut';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   list: {
     width: 250,
   },
@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideList = (history) => {
-  console.log(history);
   const classes = useStyles();
 
   const handleSubmit = () => {
@@ -35,7 +34,7 @@ const SideList = (history) => {
 
   return (
     <List className={classes.list}>
-      {buttons_info.map((text, index) => (
+      {buttons_info.map((text) => (
         <ListItem button key={text.label}>
           <Link
             to={text.link_to}

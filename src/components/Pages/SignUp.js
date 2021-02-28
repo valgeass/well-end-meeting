@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 
-
 import { AuthContext } from '../auth/AuthProvider';
 
 function Copyright() {
@@ -63,9 +62,6 @@ const SignUp = ({ history }) => {
     e.preventDefault();
     await signUp(email, password, firstName, lastName, history);
   };
-
-  // useEffect(() => {
-  // }, [password, email]);
 
   return (
     <Container component="main" maxWidth="xs">

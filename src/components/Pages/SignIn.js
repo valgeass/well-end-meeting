@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { Link as RouterLink, withRouter, Redirect } from 'react-router-dom';
-import { auth } from '../util/firebase';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -55,7 +54,6 @@ const SignIn = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pwDisabled, setPwDisabled] = useState('');
-  const [isSignIn, setIsSignIn] = useState('');
 
   const { signIn, currentUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
