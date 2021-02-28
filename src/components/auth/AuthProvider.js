@@ -35,8 +35,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signOut = async () => {
-    await auth.signOut();
+  const signOut = async (history) => {
+    try {
+      await auth.signOut();
+      console.log(history);
+      history.push('/');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   useEffect(() => {
