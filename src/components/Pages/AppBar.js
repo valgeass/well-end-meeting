@@ -1,6 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
+import { AppBar as BaseAppBar } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const ButtonAppBar = () => {
+export const AppBar = ({ page }) => {
   const classes = useStyles();
   const ref = createRef();
 
@@ -30,7 +30,7 @@ export const ButtonAppBar = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <BaseAppBar position="static">
         <Toolbar>
           <IconButton
             className={classes.menuButton}
@@ -48,13 +48,13 @@ export const ButtonAppBar = () => {
               setOpenMenu(false);
             }}
           >
-            <SideList ref={ref}/>
+            <SideList ref={ref} />
           </Drawer>
           <Typography variant="h6" className={classes.title}>
-            Main
+            {page}
           </Typography>
         </Toolbar>
-      </AppBar>
+      </BaseAppBar>
     </div>
   );
 };

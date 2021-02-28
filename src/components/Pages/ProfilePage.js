@@ -1,13 +1,8 @@
 import React, { useState, createRef, useContext } from 'react';
+import { Avatar, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import SideList from './SideList';
-
+import { AppBar } from './AppBar';
+import { gravatarPath } from '../../gravatar';
 import { AuthContext } from '../auth/AuthProvider';
 
 const useStyles = makeStyles(() => ({
@@ -25,39 +20,15 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProfilePage = () => {
+  const { profileData } = useContext(AuthContext);
   const classes = useStyles();
   const ref = createRef();
-
-  const [openMenu, setOpenMenu] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const avatarPath = gravatarPath(profileData.firstName);
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={() => {
-              setOpenMenu(true);
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            open={openMenu}
-            onClose={() => {
-              setOpenMenu(false);
-            }}
-          >
-            <SideList ref={ref} />
-          </Drawer>
-          <Typography variant="h6" className={classes.title}>
-            Profile
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div>
+      <AppBar page="profile" />
+      <Avatar src={avatarPath} />
     </div>
   );
 };
