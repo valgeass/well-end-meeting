@@ -1,9 +1,16 @@
 import { firebaseStore } from './firebase';
 
-export const DB = async ({ currentUser }) => {
-  const dbData = await firebaseStore
+export const GetDB = async ({ currentUser }) => {
+  const getData = await firebaseStore
     .collection('users')
     .doc(`${currentUser?.uid}`)
     .get();
-  return dbData;
+  return getData;
+};
+
+export const setDB = async ({ currentUser }) => {
+  const setData = await firebaseStore
+    .collection('users')
+    .doc(`${currentUser?.uid}`)
+    .set();
 };

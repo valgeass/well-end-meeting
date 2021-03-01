@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext } from 'react';
 import { auth, firebaseStore } from '../util/firebase';
-import { DB } from '../util/DB';
+import { GetDB } from '../util/DB';
 
 // contextの作成
 export const AuthContext = createContext();
@@ -52,8 +52,7 @@ export const AuthProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         auth.onAuthStateChanged(setCurrentUser);
-        const response = await DB({ currentUser, setProfileData });
-        console.log('response', response);
+        const response = await GetDB({ currentUser });
         let data = { title: 'not found' };
         if (response.exists) {
           data = response.data();
