@@ -8,9 +8,10 @@ export const GetDB = async ({ currentUser }) => {
   return getData;
 };
 
-export const setDB = async ({ currentUser }) => {
-  const setData = await firebaseStore
-    .collection('users')
-    .doc(`${currentUser?.uid}`)
-    .set();
+export const setDB = async ({ data }) => {
+  console.log(await data);
+  // const setData = await firebaseStore
+  //   .collection('users')
+  //   .doc(`${currentUser?.uid}`)
+  //   .set(data);
 };

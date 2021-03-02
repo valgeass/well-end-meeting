@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { Avatar, Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar } from './AppBar';
-import { gravatarPath } from '../../gravatar';
+import ProfielDetail from './ProfileDetail';
+import ProfielDetailEdit from './ProfileDetailEdit';
+import { setDB } from '../util/DB';
 import { AuthContext } from '../auth/AuthProvider';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,70 +12,55 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     gridRow: 1,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  large: {
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-  },
-  textStyle: {
-    textAlign: 'left',
-    fontSize: '12px',
-  },
-  profileTextStyle: {
-    textAlign: 'center',
-    fontSize: '32px',
-  },
 }));
 
 const ProfilePage = () => {
   const { profileData } = useContext(AuthContext);
   const classes = useStyles();
-  const avatarPath = gravatarPath(
-    profileData.firstName ? profileData.firstName : 'test'
-  );
-
-  return (
-    <div>
-      <AppBar page="profile" />
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Grid container justify="center">
-            <Avatar src={avatarPath} className={classes.large} />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container justify="center">
-            <Grid container item xs={6}>
-              <Grid item xs={6} className={classes.textStyle}>
-                FirstName
-              </Grid>
-              <Grid item xs={6} className={classes.textStyle}>
-                LastName
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container justify="center">
-            <Grid container item xs={6}>
-              <Grid item xs={6} className={classes.profileTextStyle}>
-                {profileData.firstName}
-              </Grid>
-              <Grid item xs={6} className={classes.profileTextStyle}>
-                {profileData.lastName}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
-  );
+  const [edit, setEdit] = useState(false);
+  const [firstName, setFirstName] = useState(profileData.firstName);
+  const [lastName, setLastName] = useState(profileData.lastName);
+  if (!edit) {
+    return (
+      <div>
+        <AppBar page="profile" />
+        <ProfielDetail />
+        <Button
+          onClick={() => {
+            setEdit(true);
+          }}
+        >
+          edit
+        </Button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <AppBar page="profile" />
+        <ProfielDetailEdit
+          setFirstName={setFirstName}
+          setLastName={setLastName}
+        />
+        <Button
+          onClick={() => {
+            setEdit(false);
+          }}
+        >
+          cancel
+        </Button>
+        <Button
+          onClick={async () => {
+            console.log(firstName);
+            setEdit(false);
+            await setDB({ firstName });
+          }}
+        >
+          ok
+        </Button>
+      </div>
+    );
+  }
 };
 
 export default ProfilePage;
