@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar } from './AppBar';
 import ProfielDetail from './ProfileDetail';
 import ProfielDetailEdit from './ProfileDetailEdit';
-import { setDB } from '../util/DB';
+import { SetDB } from '../util/DB';
 import { AuthContext } from '../auth/AuthProvider';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,11 +15,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfilePage = () => {
-  const { profileData } = useContext(AuthContext);
+  const { currentUser, profileData } = useContext(AuthContext);
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState(profileData.firstName);
   const [lastName, setLastName] = useState(profileData.lastName);
+  console.log({ currentUser });
+  const handleClick = async () => {
+    setEdit(false);
+    console.log({ currentUser });
+    await SetDB(currentUser);
+  };
+
   if (!edit) {
     return (
       <div>
@@ -49,15 +56,7 @@ const ProfilePage = () => {
         >
           cancel
         </Button>
-        <Button
-          onClick={async () => {
-            console.log(firstName);
-            setEdit(false);
-            await setDB({ firstName });
-          }}
-        >
-          ok
-        </Button>
+        <Button onClick={() => handleClick()}>ok</Button>
       </div>
     );
   }

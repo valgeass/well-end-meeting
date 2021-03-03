@@ -8,7 +8,6 @@ import MessageList from '../Message/MessageList';
 import { AuthContext } from '../auth/AuthProvider';
 
 import { AppBar } from './AppBar';
-import { DB } from '../util/DB';
 
 const useStyles = makeStyles((theme) => ({
   root: {
