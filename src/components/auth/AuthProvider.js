@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         let data = { title: 'not found' };
         if (response.exists) {
           data = response.data();
+          console.log(data);
           setProfileData(data);
         }
       } catch (err) {
