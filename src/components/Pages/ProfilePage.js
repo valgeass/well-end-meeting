@@ -22,7 +22,7 @@ const ProfilePage = () => {
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState(profileData.firstName);
   const [lastName, setLastName] = useState(profileData.lastName);
-  console.log(firstName);
+  console.log(profileData);
 
   console.log({ currentUser });
   const data = {
