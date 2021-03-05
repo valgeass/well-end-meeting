@@ -24,30 +24,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
-  const { currentUser, profileData } = useContext(AuthContext);
+  const { profileData } = useContext(AuthContext);
   const classes = useStyles();
-  const [name, setName] = useState('test');
-
-  // useEffect(() => {
-  //   let unmount = false;
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await DB({ currentUser, setName });
-  //       console.log('response', response);
-  //       let data = { title: 'not found' };
-  //       if (response.exists) {
-  //         data = response.data();
-  //         setName(data);
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   if (!unmount) {
-  //     fetchData();
-  //   }
-  //   return () => (unmount = true);
-  // }, []);
 
   if (profileData.firstName) {
     return (

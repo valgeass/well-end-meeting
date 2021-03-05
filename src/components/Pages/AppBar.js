@@ -48,7 +48,7 @@ export const AppBar = ({ page }) => {
               setOpenMenu(false);
             }}
           >
-            <SideList ref={ref} />
+            <SideList />
           </Drawer>
           <Typography variant="h6" className={classes.title}>
             {page}

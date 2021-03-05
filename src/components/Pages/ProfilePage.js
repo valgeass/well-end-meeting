@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar } from './AppBar';
 import ProfielDetail from './ProfileDetail';
@@ -11,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     gridRow: 1,
+  },
+  liner: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
 }));
 
@@ -31,7 +39,18 @@ const ProfilePage = () => {
     setEdit(false);
   };
 
-  if (!edit) {
+  useEffect(() => {
+    console.log(firstName);
+    console.log(profileData.firstName);
+  }, [edit]);
+
+  if (!profileData) {
+    return (
+      <div className={classes.liner}>
+        <LinearProgress />
+      </div>
+    );
+  } else if (!edit) {
     return (
       <div>
         <AppBar page="profile" />

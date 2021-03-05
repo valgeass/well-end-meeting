@@ -34,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfielDetailEdit = ({ setFirstName, setLastName }) => {
   const { profileData } = useContext(AuthContext);
   const classes = useStyles();
-  const avatarPath = gravatarPath(
-    profileData.firstName ? profileData.firstName : 'test'
-  );
+  const avatarPath = gravatarPath(profileData.firstName);
 
   return (
     <div>
