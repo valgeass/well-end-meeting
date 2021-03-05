@@ -16,29 +16,20 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfilePage = () => {
   const { currentUser, profileData } = useContext(AuthContext);
-  console.log({ currentUser });
-  console.log({ profileData });
+
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState(profileData.firstName);
   const [lastName, setLastName] = useState(profileData.lastName);
-  console.log(profileData);
 
-  console.log({ currentUser });
   const data = {
     firstName: firstName,
     lastName: lastName,
   };
   const handleClick = async () => {
-    console.log({ currentUser });
-    console.log({ data });
-    // await SetDB({ currentUser }, data);
+    await SetDB({ currentUser }, data);
     setEdit(false);
   };
-
-  useEffect(() => {
-    console.log(firstName);
-  }, [firstName]);
 
   if (!edit) {
     return (
@@ -47,6 +38,8 @@ const ProfilePage = () => {
         <ProfielDetail />
         <Button
           onClick={() => {
+            setFirstName(profileData.firstName);
+            setLastName(profileData.lastName);
             setEdit(true);
           }}
         >
