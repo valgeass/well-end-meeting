@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar } from './AppBar';
 import ProfielDetail from './ProfileDetail';
 import ProfielDetailEdit from './ProfileDetailEdit';
-import { SetDB } from '../util/DB';
+import { SetDB, GetDB } from '../util/DB';
 import { AuthContext } from '../auth/AuthProvider';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +27,7 @@ const ProfilePage = () => {
 
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
+  const profile = GetDB({ currentUser });
   const [firstName, setFirstName] = useState(profileData.firstName);
   const [lastName, setLastName] = useState(profileData.lastName);
 
@@ -39,10 +40,23 @@ const ProfilePage = () => {
     setEdit(false);
   };
 
-  useEffect(() => {
-    console.log(firstName);
-    console.log(profileData.firstName);
-  }, [edit]);
+  // useEffect(() => {
+  //   console.log(firstName);
+  //   console.log(profileData.firstName);
+  // }, [edit]);
+
+  const fetchData = async () => {
+    try {
+      const response = await GetDB({ currentUser });
+      let data = { title: 'not found' };
+      if (response.exists) {
+        data = response.data();
+        console.log(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (!profileData) {
     return (
@@ -57,6 +71,7 @@ const ProfilePage = () => {
         <ProfielDetail />
         <Button
           onClick={() => {
+            fetchData();
             setFirstName(profileData.firstName);
             setLastName(profileData.lastName);
             setEdit(true);
