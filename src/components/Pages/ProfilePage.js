@@ -28,9 +28,8 @@ const ProfilePage = () => {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const profile = GetDB({ currentUser });
-  const [firstName, setFirstName] = useState(profileData.firstName);
-  const [lastName, setLastName] = useState(profileData.lastName);
-
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const data = {
     firstName: firstName,
     lastName: lastName,
@@ -38,12 +37,8 @@ const ProfilePage = () => {
   const handleClick = async () => {
     await SetDB({ currentUser }, data);
     setEdit(false);
+    fetchData();
   };
-
-  // useEffect(() => {
-  //   console.log(firstName);
-  //   console.log(profileData.firstName);
-  // }, [edit]);
 
   const fetchData = async () => {
     try {
@@ -52,11 +47,17 @@ const ProfilePage = () => {
       if (response.exists) {
         data = response.data();
         console.log(data);
+        setLastName(data.lastName);
+        setFirstName(data.firstName);
       }
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (!profileData) {
     return (
@@ -68,12 +69,10 @@ const ProfilePage = () => {
     return (
       <div>
         <AppBar page="profile" />
-        <ProfielDetail />
+        <ProfielDetail firstName={firstName} lastName={lastName} />
         <Button
           onClick={() => {
             fetchData();
-            setFirstName(profileData.firstName);
-            setLastName(profileData.lastName);
             setEdit(true);
           }}
         >
@@ -88,6 +87,8 @@ const ProfilePage = () => {
         <ProfielDetailEdit
           setFirstName={setFirstName}
           setLastName={setLastName}
+          firstName={firstName}
+          lastName={lastName}
         />
         <Button
           onClick={() => {

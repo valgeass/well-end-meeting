@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfielDetail = () => {
+const ProfielDetail = ({ firstName, lastName }) => {
+  console.log(firstName);
   const { profileData } = useContext(AuthContext);
   const classes = useStyles();
   const avatarPath = gravatarPath(profileData.firstName);
@@ -60,10 +61,10 @@ const ProfielDetail = () => {
           <Grid container justify="center">
             <Grid container item xs={6}>
               <Grid item xs={6} className={classes.profileTextStyle}>
-                {profileData.firstName}
+                {firstName}
               </Grid>
               <Grid item xs={6} className={classes.profileTextStyle}>
-                {profileData.lastName}
+                {lastName}
               </Grid>
             </Grid>
           </Grid>

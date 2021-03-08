@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfielDetailEdit = ({ setFirstName, setLastName }) => {
+const ProfielDetailEdit = ({ setFirstName, setLastName, firstName, lastName }) => {
   const { profileData } = useContext(AuthContext);
   const classes = useStyles();
   const avatarPath = gravatarPath(profileData.firstName);
@@ -65,7 +65,7 @@ const ProfielDetailEdit = ({ setFirstName, setLastName }) => {
                   variant="outlined"
                   label="FirstName"
                   required={true}
-                  defaultValue={profileData.firstName}
+                  defaultValue={firstName}
                   onChange={(e) => {
                     setFirstName(e.target.value);
                   }}
@@ -77,7 +77,7 @@ const ProfielDetailEdit = ({ setFirstName, setLastName }) => {
                   variant="outlined"
                   label="LastName"
                   required={true}
-                  defaultValue={profileData.lastName}
+                  defaultValue={lastName}
                   onChange={(e) => {
                     setLastName(e.target.value);
                   }}
