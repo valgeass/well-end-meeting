@@ -27,7 +27,6 @@ const ProfilePage = () => {
 
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
-  const profile = GetDB({ currentUser });
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const data = {
